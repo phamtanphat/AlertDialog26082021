@@ -12,6 +12,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     Button mBtnAlertDialog;
+    int index = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,16 +23,27 @@ public class MainActivity extends AppCompatActivity {
         mBtnAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                index = -1;
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
-                alertBuilder.setTitle("Thông báo");
-                alertBuilder.setMessage("Ứng có phiên bản mới. Câp nhật ngay bây giờ");
+                alertBuilder.setTitle("Chọn động ưa thích");
                 alertBuilder.setIcon(R.mipmap.ic_launcher);
                 alertBuilder.setCancelable(false);
+
+                // single choice
+
+                String[] arrayAnimal = {"Cat","Dog","Big","Bird"};
+
+                alertBuilder.setSingleChoiceItems(arrayAnimal, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        index = which;
+                    }
+                });
 
                 alertBuilder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this, "Đồng ý", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, arrayAnimal[index], Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -42,12 +54,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                alertBuilder.setNeutralButton("Hủy", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this, "Hủy", Toast.LENGTH_SHORT).show();
-                    }
-                });
+//                alertBuilder.setNeutralButton("Hủy", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Toast.makeText(MainActivity.this, "Hủy", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
                 alertBuilder.show();
 
