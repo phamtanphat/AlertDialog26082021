@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button mBtnAlertDialog;
     int index = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,25 +26,34 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 index = -1;
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
-                alertBuilder.setTitle("Chọn động ưa thích");
+                alertBuilder.setTitle("Pick your option");
                 alertBuilder.setIcon(R.mipmap.ic_launcher);
                 alertBuilder.setCancelable(false);
 
-                // single choice
+                // multiple choice
 
-                String[] arrayAnimal = {"Cat","Dog","Big","Bird"};
+                String[] arrayTopping = {"Onion", "Lettuce", "Tomato", "Pepper", "Hot Sauce"};
+                boolean[] arrayChecked = {false, false, false, false, false, false};
 
-                alertBuilder.setSingleChoiceItems(arrayAnimal, -1, new DialogInterface.OnClickListener() {
+                alertBuilder.setMultiChoiceItems(arrayTopping, arrayChecked, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        index = which;
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
                     }
                 });
 
                 alertBuilder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this, arrayAnimal[index], Toast.LENGTH_SHORT).show();
+                        String result = "";
+
+                        for (int i = 0; i < arrayTopping.length; i++) {
+                            if (arrayChecked[i]) {
+                                result += arrayTopping[i] + " , ";
+                            }
+                        }
+                        result = result.substring(0, result.length() - 3 );
+                        Toast.makeText(MainActivity.this, "Thành phần : " + result, Toast.LENGTH_SHORT).show();
                     }
                 });
 
