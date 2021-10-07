@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                                 result += arrayTopping[i] + " , ";
                             }
                         }
-                        result = result.substring(0, result.length() - 3 );
+                        result = result.substring(0, result.length() - 3);
                         Toast.makeText(MainActivity.this, "Thành phần : " + result, Toast.LENGTH_SHORT).show();
                     }
                 });
