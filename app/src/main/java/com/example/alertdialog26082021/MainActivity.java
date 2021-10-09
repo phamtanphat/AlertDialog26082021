@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 Dialog dialog = new Dialog(MainActivity.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.item_dialog);
+                dialog.setCancelable(false);
 
                 Window window = dialog.getWindow();
                 if (window == null){
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // Set gravity cho dialog
                 WindowManager.LayoutParams layoutParams = window.getAttributes();
-                layoutParams.gravity = Gravity.CENTER;
+                layoutParams.gravity = Gravity.BOTTOM;
                 window.setAttributes(layoutParams);
 
                 // Kich thước dialog
@@ -111,7 +112,22 @@ public class MainActivity extends AppCompatActivity {
                 AppCompatButton button = dialog.findViewById(R.id.appButtonYes);
 
 
+                imgClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
 
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MainActivity.this, "Yes", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
 
             }
         });
